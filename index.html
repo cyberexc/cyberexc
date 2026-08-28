@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ExchangeKoro — Digital Exchange</title>
+  <meta name="description" content="ExchangeKoro — Fast, simple and secure digital exchange service.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080808;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: rgba(8, 8, 8, 0.92);
+      border-bottom: 1px solid #202020;
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-inner {
+      max-width: 1150px;
+      margin: auto;
+      min-height: 70px;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #00ff88;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #aaa;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #00ff88;
+    }
+
+    .nav-button {
+      padding: 10px 17px;
+      border-radius: 9px;
+      background: #00ff88;
+      color: #000 !important;
+      font-weight: 800;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(0, 255, 136, 0.10), transparent 35%),
+        #080808;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(0, 255, 136, 0.08);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 70px rgba(0, 255, 136, 0.015),
+        0 0 0 140px rgba(0, 255, 136, 0.01);
+    }
+
+    .hero-content {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      padding: 90px 22px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      border: 1px solid #242424;
+      border-radius: 999px;
+      color: #aaa;
+      background: #101010;
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00ff88;
+      box-shadow: 0 0 12px #00ff88;
+    }
+
+    .hero h1 {
+      font-size: clamp(45px, 8vw, 82px);
+      line-height: 0.98;
+      letter-spacing: -4px;
+      font-weight: 950;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: #00ff88;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin: auto;
+      color: #999;
+      font-size: 17px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 35px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      border: 1px solid #292929;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: #00ff88;
+      color: #000;
+      border-color: #00ff88;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 255, 136, 0.15);
+    }
+
+    .btn-secondary {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      border-color: #00ff88;
+      color: #00ff88;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 22px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-heading .small {
+      color: #00ff88;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-heading h2 {
+      margin-top: 8px;
+      font-size: 38px;
+      letter-spacing: -1.5px;
+    }
+
+    .section-heading p {
+      color: #888;
+      max-width: 600px;
+      margin: 12px auto 0;
+    }
+
+    /* FEATURES */
+    .features {
+      background: #0b0b0b;
+      border-top: 1px solid #171717;
+      border-bottom: 1px solid #171717;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 28px;
+      background: #101010;
+      border: 1px solid #202020;
+      border-radius: 16px;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #303030;
+    }
+
+    .icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: rgba(0, 255, 136, 0.08);
+      color: #00ff88;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      color: #858585;
+      font-size: 14px;
+    }
+
+    /* EXCHANGE */
+    .exchange-box {
+      max-width: 620px;
+      margin: auto;
+      background: #101010;
+      border: 1px solid #242424;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.25);
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
+      display: block;
+      color: #aaa;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .field select,
+    .field input {
+      width: 100%;
+      height: 48px;
+      border-radius: 9px;
+      border: 1px solid #292929;
+      background: #080808;
+      color: #fff;
+      padding: 0 14px;
+      outline: none;
+    }
+
+    .field select:focus,
+    .field input:focus {
+      border-color: #00ff88;
+    }
+
+    .rate-box {
+      padding: 13px;
+      border-radius: 9px;
+      background: #0a0a0a;
+      border: 1px solid #202020;
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 17px;
+      text-align: center;
+    }
+
+    .rate-box strong {
+      color: #00ff88;
+    }
+
+    .exchange-result {
+      display: none;
+      margin-top: 17px;
+      padding: 15px;
+      border-radius: 9px;
+      background: rgba(0, 255, 136, 0.06);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      color: #bbb;
+      font-size: 13px;
+    }
+
+    .exchange-result strong {
+      color: #00ff88;
+    }
+
+    /* HOW */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 25px;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 15px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid #303030;
+      color: #00ff88;
+      font-weight: 900;
+    }
+
+    .step p {
+      color: #888;
+      font-size: 14px;
+      margin-top: 7px;
+    }
+
+    /* CTA */
+    .cta {
+      padding-top: 40px;
+    }
+
+    .cta-box {
+      padding: 65px 25px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid #202020;
+      background:
+        radial-gradient(circle at center, rgba(0,255,136,.08), transparent 55%),
+        #101010;
+    }
+
+    .cta-box h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      color: #888;
+      margin-bottom: 25px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #1c1c1c;
+      padding: 30px 22px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .footer-logo span {
+      color: #00ff88;
+    }
+
+    /* MOBILE */
+    @media (max-width: 760px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-inner {
+        min-height: 62px;
+      }
+
+      .hero {
+        min-height: 570px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      section {
+        padding: 65px 17px;
+      }
+
+      .feature-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading h2 {
+        font-size: 31px;
+      }
+
+      .cta-box h2 {
+        font-size: 29px;
+      }
+
+      .exchange-box {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">Exchange<span>Koro</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#exchange">Exchange</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#contact" class="nav-button">Get Started</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Digital Exchange Service
+        </div>
+
+        <h1>
+          Exchange<br>
+          <span>Without The Hassle.</span>
+        </h1>
+
+        <p>
+          Fast, simple and transparent digital exchanges.
+          Choose what you want to exchange and get started.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#exchange" class="btn btn-primary">
+            Start Exchange
+          </a>
+
+          <a href="#how" class="btn btn-secondary">
+            How It Works
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="small">Why ExchangeKoro</div>
+          <h2>Simple. Fast. Transparent.</h2>
+          <p>
+            Everything you need for a straightforward exchange experience.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+
+          <div class="card">
+            <div class="icon">⚡</div>
+            <h3>Fast Processing</h3>
+            <p>
+              We aim to process exchange requests quickly and efficiently.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">🔒</div>
+            <h3>Secure Process</h3>
+            <p>
+              Your exchange request is handled through a simple and organized process.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">💬</div>
+            <h3>Support</h3>
+            <p>
+              Need help? Contact our support team before starting your exchange.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXCHANGE CALCULATOR -->
+    <section id="exchange">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="small">Exchange</div>
+          <h2>Calculate Your Exchange</h2>
+          <p>
+            Select your currencies and enter an amount to see an estimate.
+          </p>
+        </div>
+
+        <div class="exchange-box">
+
+          <div class="field">
+            <label for="from">From</label>
+            <select id="from">
+              <option value="USD">USD — US Dollar</option>
+              <option value="BDT">BDT — Bangladeshi Taka</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — British Pound</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="to">To</label>
+            <select id="to">
+              <option value="BDT">BDT — Bangladeshi Taka</option>
+              <option value="USD">USD — US Dollar</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — British Pound</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              min="0"
+              step="any"
+              placeholder="Enter amount"
+            >
+          </div>
+
+          <div class="rate-box">
+            Estimated rate:
+            <strong id="rate">—</strong>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%; cursor:pointer;" onclick="calculateExchange()">
+            Calculate
+          </button>
+
+          <div class="exchange-result" id="result"></div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="small">Process</div>
+          <h2>How It Works</h2>
+          <p>Three simple steps to start your exchange.</p>
+        </div>
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Choose</h3>
+            <p>Select what you want to exchange.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Submit</h3>
+            <p>Contact us with your exchange details.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Complete</h3>
+            <p>Follow the provided instructions to complete the exchange.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+      <div class="container">
+
+        <div class="cta-box">
+          <h2>Ready to Exchange?</h2>
+          <p>
+            Contact ExchangeKoro and start your request.
+          </p>
+
+          <!-- CHANGE THIS LINK TO YOUR ACTUAL CONTACT/DISCORD LINK -->
+          <a
+            href="https://discord.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Contact Support
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <span class="footer-logo">Exchange<span>Koro</span></span>
+        <br>
+        Digital Exchange Service
+      </div>
+
+      <div>
+        © <span id="year"></span> ExchangeKoro. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /*
+      Static GitHub Pages calculator.
+      No backend/API is required for this page to load.
+    */
+
+    const rates = {
+      USD: {
+        USD: 1,
+        BDT: 122,
+        EUR: 0.85,
+        GBP: 0.74
+      },
+
+      BDT: {
+        USD: 1 / 122,
+        BDT: 1,
+        EUR: 0.85 / 122,
+        GBP: 0.74 / 122
+      },
+
+      EUR: {
+        USD: 1 / 0.85,
+        BDT: 122 / 0.85,
+        EUR: 1,
+        GBP: 0.74 / 0.85
+      },
+
+      GBP: {
+        USD: 1 / 0.74,
+        BDT: 122 / 0.74,
+        EUR: 0.85 / 0.74,
+        GBP: 1
+      }
+    };
+
+    const fromSelect = document.getElementById("from");
+    const toSelect = document.getElementById("to");
+    const amountInput = document.getElementById("amount");
+    const rateText = document.getElementById("rate");
+    const resultBox = document.getElementById("result");
+
+    function updateRate() {
+      const from = fromSelect.value;
+      const to = toSelect.value;
+
+      const rate = rates[from][to];
+
+      rateText.textContent =
+        `1 ${from} ≈ ${rate.toFixed(4)} ${to}`;
+    }
+
+    function calculateExchange() {
+      const from = fromSelect.value;
+      const to = toSelect.value;
+      const amount = Number(amountInput.value);
+
+      if (!amount || amount <= 0) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML =
+          "Please enter a valid amount.";
+        return;
+      }
+
+      const rate = rates[from][to];
+      const converted = amount * rate;
+
+      resultBox.style.display = "block";
+
+      resultBox.innerHTML =
+        `<strong>${amount.toLocaleString()} ${from}</strong> ≈ ` +
+        `<strong>${converted.toLocaleString(undefined, {
+          maximumFractionDigits: 2
+        })} ${to}</strong>`;
+    }
+
+    fromSelect.addEventListener("change", updateRate);
+    toSelect.addEventListener("change", updateRate);
+
+    amountInput.addEventListener("input", function () {
+      if (resultBox.style.display === "block") {
+        calculateExchange();
+      }
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    updateRate();
+  </script>
+
+</body>
+</html>
