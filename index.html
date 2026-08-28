@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CyberExc Exchange</title>
+
+    <meta
+        name="description"
+        content="CyberExc Exchange"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #18213d 0%,
+                    #080b12 45%,
+                    #050609 100%
+                );
+
+            color: #ffffff;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 25px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-icon {
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 12px;
+
+            border-radius: 17px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 28px;
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d5dfc,
+                    #3f8cff
+                );
+
+            box-shadow:
+                0 10px 35px
+                rgba(76, 93, 255, 0.35);
+        }
+
+        .logo h1 {
+            font-size: 27px;
+            letter-spacing: -0.7px;
+        }
+
+        .logo p {
+            margin-top: 5px;
+            color: #8f98aa;
+            font-size: 14px;
+        }
+
+        .card {
+            background:
+                rgba(15, 18, 27, 0.94);
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.08);
+
+            border-radius: 22px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, 0.45);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 10px;
+            color: #aab2c2;
+        }
+
+        .spinner {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 50%;
+
+            border: 3px solid
+                rgba(255,255,255,0.12);
+
+            border-top-color: #6d5dfc;
+
+            animation:
+                spin 0.8s linear infinite;
+
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .order-title {
+            font-size: 20px;
+            font-weight: 750;
+        }
+
+        .status {
+            padding: 7px 11px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            background:
+                rgba(245, 166, 35, 0.12);
+
+            color: #f5b544;
+
+            border: 1px solid
+                rgba(245, 166, 35, 0.18);
+        }
+
+        .order-id {
+            color: #8f98aa;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .details {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 22px;
+        }
+
+        .detail {
+            padding: 14px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            border-radius: 14px;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            color: #7e8799;
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .address-box {
+            margin-bottom: 22px;
+        }
+
+        .label {
+            display: block;
+
+            color: #aab2c2;
+
+            font-size: 12px;
+            font-weight: 650;
+
+            margin-bottom: 8px;
+        }
+
+        .address {
+            padding: 13px;
+
+            background: #080a0f;
+
+            border: 1px solid
+                rgba(255,255,255,0.08);
+
+            border-radius: 12px;
+
+            word-break: break-all;
+
+            color: #cbd2df;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 750;
+
+            margin-bottom: 13px;
+        }
+
+        .methods {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+        .method {
+            cursor: pointer;
+
+            padding: 14px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+            color: #bfc6d4;
+
+            font-weight: 700;
+
+            text-align: center;
+
+            transition:
+                0.2s ease;
+        }
+
+        .method:hover {
+            border-color:
+                rgba(109, 93, 252, 0.5);
+        }
+
+        .method.selected {
+            border-color: #6d5dfc;
+
+            background:
+                rgba(109, 93, 252, 0.12);
+
+            color: #ffffff;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border-radius: 13px;
+
+            border: 1px solid
+                rgba(255,255,255,0.08);
+
+            background: #080a0f;
+
+            color: #ffffff;
+
+            outline: none;
+
+            font-size: 14px;
+
+            margin-bottom: 12px;
+        }
+
+        input:focus {
+            border-color: #6d5dfc;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(109, 93, 252, 0.1);
+        }
+
+        .warning {
+            padding: 13px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(245, 166, 35, 0.08);
+
+            border:
+                1px solid
+                rgba(245, 166, 35, 0.15);
+
+            color: #d8b56a;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            margin-bottom: 15px;
+        }
+
+        .submit {
+            width: 100%;
+
+            border: none;
+
+            border-radius: 13px;
+
+            padding: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d5dfc,
+                    #467dff
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+            box-shadow:
+                0 10px 25px
+                rgba(79, 93, 255, 0.2);
+        }
+
+        .submit:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(79, 93, 255, 0.3);
+        }
+
+        .submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            display: none;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            margin-bottom: 15px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+
+            background:
+                rgba(239, 68, 68, 0.09);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.18);
+
+            color: #ff9c9c;
+        }
+
+        .message.success {
+            display: block;
+
+            background:
+                rgba(34, 197, 94, 0.09);
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.18);
+
+            color: #8be0a6;
+        }
+
+        .footer {
+            text-align: center;
+
+            color: #656d7d;
+
+            font-size: 11px;
+
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .details {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .detail-value {
+                font-size: 13px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            C
+        </div>
+
+        <h1>
+            CyberExc
+        </h1>
+
+        <p>
+            Exchange Portal
+        </p>
+
+    </div>
+
+
+    <!-- MAIN CARD -->
+
+    <div class="card">
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="loading"
+        >
+
+            <div class="spinner"></div>
+
+            Loading your order...
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="pageError"
+            class="message error hidden"
+        ></div>
+
+
+        <!-- ORDER -->
+
+        <div
+            id="orderSection"
+            class="hidden"
+        >
+
+            <div class="order-header">
+
+                <div>
+
+                    <div class="order-title">
+                        Payment Order
+                    </div>
+
+                    <div
+                        id="orderId"
+                        class="order-id"
+                    >
+                    </div>
+
+                </div>
+
+                <div
+                    id="status"
+                    class="status"
+                >
+                    PAYMENT PENDING
+                </div>
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <div class="details">
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        BDT Amount
+                    </div>
+
+                    <div
+                        id="bdt"
+                        class="detail-value"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        USD Amount
+                    </div>
+
+                    <div
+                        id="usd"
+                        class="detail-value"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        Litecoin
+                    </div>
+
+                    <div
+                        id="ltc"
+                        class="detail-value"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        Rate
+                    </div>
+
+                    <div
+                        class="detail-value"
+                    >
+                        ৳133 = $1
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="address-box">
+
+                <span class="label">
+                    Litecoin Address
+                </span>
+
+                <div
+                    id="address"
+                    class="address"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div id="paymentSection">
+
+                <div class="section-title">
+                    Select Payment Method
+                </div>
+
+
+                <div class="methods">
+
+                    <div
+                        class="method"
+                        data-method="bKash"
+                        onclick="selectMethod('bKash')"
+                    >
+                        📱 bKash
+                    </div>
+
+
+                    <div
+                        class="method"
+                        data-method="Nagad"
+                        onclick="selectMethod('Nagad')"
+                    >
+                        📱 Nagad
+                    </div>
+
+                </div>
+
+
+                <label
+                    class="label"
+                    for="trxId"
+                >
+                    Transaction ID
+                </label>
+
+                <input
+                    id="trxId"
+                    type="text"
+                    placeholder="Enter your TrxID"
+                    autocomplete="off"
+                >
+
+
+                <div class="warning">
+
+                    ⚠️ <strong>Important:</strong>
+                    Only submit a genuine transaction ID.
+                    Fake or invalid payment information may
+                    result in your order being rejected or
+                    your account being warned/banned according
+                    to the exchange rules.
+
+                </div>
+
+
+                <div
+                    id="formMessage"
+                    class="message"
+                ></div>
+
+
+                <button
+                    id="submitButton"
+                    class="submit"
+                    onclick="submitPayment()"
+                >
+                    Submit Payment
+                </button>
+
+            </div>
+
+
+            <!-- SUCCESS -->
+
+            <div
+                id="successSection"
+                class="hidden"
+            >
+
+                <div
+                    class="message success"
+                    style="display:block;"
+                >
+
+                    ✅ <strong>Payment submitted.</strong>
+
+                    <br><br>
+
+                    Your payment information has been
+                    submitted successfully.
+
+                    <br><br>
+
+                    Please wait while an administrator
+                    manually verifies the payment.
+
+                    <br><br>
+
+                    Payment ID:
+                    <strong id="successOrderId"></strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        CyberExc Exchange • Please verify all
+        payment information before submitting.
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+     * ========================================================
+     * CONFIGURATION
+     * ========================================================
+     *
+     * CHANGE THIS.
+     *
+     * Example:
+     *
+     * const API_URL =
+     *     "https://example.com";
+     *
+     * Do NOT put /api at the end.
+     */
+
+    const API_URL =
+        "https://YOUR-BACKEND-DOMAIN.com";
+
+
+    /*
+     * ========================================================
+     * VARIABLES
+     * ========================================================
+     */
+
+    let currentOrder = null;
+
+    let selectedMethod = null;
+
+
+    /*
+     * ========================================================
+     * GET ORDER ID
+     * ========================================================
+     */
+
+    function getOrderId() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        return params.get("order");
+
+    }
+
+
+    /*
+     * ========================================================
+     * ESCAPE HTML
+     * ========================================================
+     */
+
+    function escapeHTML(value) {
+
+        if (value === null ||
+            value === undefined) {
+
+            return "";
+
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+     * ========================================================
+     * LOAD ORDER
+     * ========================================================
+     */
+
+    async function loadOrder() {
+
+        const orderId =
+            getOrderId();
+
+
+        if (!orderId) {
+
+            showPageError(
+                "No Payment ID was provided. Please use the payment link sent by the CyberExc bot."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/orders/${encodeURIComponent(orderId)}`
+                );
+
+
+            if (!response.ok) {
+
+                let errorText =
+                    "Order not found.";
+
+                try {
+
+                    const errorData =
+                        await response.json();
+
+                    if (errorData.error) {
+                        errorText =
+                            errorData.error;
+                    }
+
+                } catch (e) {}
+
+                throw new Error(
+                    errorText
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.order) {
+
+                throw new Error(
+                    "Invalid order response."
+                );
+
+            }
+
+
+            currentOrder =
+                data.order;
+
+
+            displayOrder(
+                currentOrder
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showPageError(
+
+                "Unable to load this order. " +
+                "Please try again or contact support."
+
+            );
+
+        }
+
+    }
+
+
+    /*
+     * ========================================================
+     * DISPLAY ORDER
+     * ========================================================
+     */
+
+    function displayOrder(order) {
+
+        document
+            .getElementById("loading")
+            .classList.add("hidden");
+
+
+        document
+            .getElementById("orderSection")
+            .classList.remove("hidden");
+
+
+        document
+            .getElementById("orderId")
+            .textContent =
+                "#" + order.order_id;
+
+
+        document
+            .getElementById("bdt")
+            .textContent =
+                "৳" +
+                Number(order.bdt)
+                    .toLocaleString(
+                        "en-BD",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }
+                    );
+
+
+        document
+            .getElementById("usd")
+            .textContent =
+                "$" +
+                Number(order.usd)
+                    .toFixed(2);
+
+
+        document
+            .getElementById("ltc")
+            .textContent =
+                Number(order.ltc_amount)
+                    .toFixed(8) +
+                " LTC";
+
+
+        document
+            .getElementById("address")
+            .textContent =
+                order.ltc_address;
+
+
+        updateStatus(
+            order.status
+        );
+
+
+        /*
+         * If payment has already been submitted,
+         * don't show the submission form again.
+         */
+
+        if (
+            order.status ===
+            "payment_submitted"
+            ||
+            order.status ===
+            "verified"
+        ) {
+
+            document
+                .getElementById(
+                    "paymentSection"
+                )
+                .classList.add(
+                    "hidden"
+                );
+
+
+            if (
+                order.status ===
+                "payment_submitted"
+            ) {
+
+                showSuccess(
+                    order.order_id
+                );
+
+            }
+
+
+            if (
+                order.status ===
+                "verified"
+            ) {
+
+                showSuccess(
+                    order.order_id,
+                    "This order has already been verified."
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /*
+     * ========================================================
+     * STATUS
+     * ========================================================
+     */
+
+    function updateStatus(status) {
+
+        const element =
+            document.getElementById(
+                "status"
+            );
+
+
+        if (status === "pending") {
+
+            element.textContent =
+                "PAYMENT PENDING";
+
+        }
+
+        else if (
+            status ===
+            "payment_submitted"
+        ) {
+
+            element.textContent =
+                "UNDER REVIEW";
+
+        }
+
+        else if (
+            status === "verified"
+        ) {
+
+            element.textContent =
+                "VERIFIED";
+
+        }
+
+        else {
+
+            element.textContent =
+                String(status)
+                    .toUpperCase();
+
+        }
+
+    }
+
+
+    /*
+     * ========================================================
+     * SELECT PAYMENT METHOD
+     * ========================================================
+     */
+
+    function selectMethod(method) {
+
+        selectedMethod =
+            method;
+
+
+        const buttons =
+            document.querySelectorAll(
+                ".method"
+            );
+
+
+        buttons.forEach(
+            button => {
+
+                button.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+        const selected =
+            document.querySelector(
+                `[data-method="${method}"]`
+            );
+
+
+        if (selected) {
+
+            selected.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        clearFormMessage();
+
+    }
+
+
+    /*
+     * ========================================================
+     * SUBMIT PAYMENT
+     * ========================================================
+     */
+
+    async function submitPayment() {
+
+        if (!currentOrder) {
+
+            return;
+
+        }
+
+
+        if (!selectedMethod) {
+
+            showFormError(
+                "Please select bKash or Nagad."
+            );
+
+            return;
+
+        }
+
+
+        const trxInput =
+            document.getElementById(
+                "trxId"
+            );
+
+
+        const trxId =
+            trxInput.value.trim();
+
+
+        if (!trxId) {
+
+            showFormError(
+                "Please enter your transaction ID."
+            );
+
+            trxInput.focus();
+
+            return;
+
+        }
+
+
+        if (trxId.length < 3) {
+
+            showFormError(
+                "Please enter a valid transaction ID."
+            );
+
+            trxInput.focus();
+
+            return;
+
+        }
+
+
+        /*
+         * Prevent accidental duplicate submission.
+         */
+
+        const button =
+            document.getElementById(
+                "submitButton"
+            );
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Submitting...";
+
+
+        clearFormMessage();
+
+
+        try {
+
+            const response =
+                await fetch(
+
+                    `${API_URL}/api/orders/${encodeURIComponent(currentOrder.order_id)}/payment`,
+
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            trx_id:
+                                trxId,
+
+                            payment_method:
+                                selectedMethod
+
+                        })
+
+                    }
+
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    data.error ||
+                    "Payment submission failed."
+
+                );
+
+            }
+
+
+            /*
+             * Update UI
+             */
+
+            currentOrder.status =
+                "payment_submitted";
+
+
+            currentOrder.trx_id =
+                trxId;
+
+
+            currentOrder.payment_method =
+                selectedMethod;
+
+
+            updateStatus(
+                "payment_submitted"
+            );
+
+
+            document
+                .getElementById(
+                    "paymentSection"
+                )
+                .classList.add(
+                    "hidden"
+                );
+
+
+            showSuccess(
+                currentOrder.order_id
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showFormError(
+                error.message ||
+                "Something went wrong. Please try again."
+            );
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Submit Payment";
+
+        }
+
+    }
+
+
+    /*
+     * ========================================================
+     * SUCCESS
+     * ========================================================
+     */
+
+    function showSuccess(
+        orderId,
+        customMessage = null
+    ) {
+
+        const section =
+            document.getElementById(
+                "successSection"
+            );
+
+
+        section.classList.remove(
+            "hidden"
+        );
+
+
+        document
+            .getElementById(
+                "successOrderId"
+            )
+            .textContent =
+                "#" + orderId;
+
+
+        if (customMessage) {
+
+            const box =
+                section.querySelector(
+                    ".message"
+                );
+
+
+            box.innerHTML =
+                "✅ <strong>" +
+                escapeHTML(
+                    customMessage
+                ) +
+                "</strong>";
+
+        }
+
+    }
+
+
+    /*
+     * ========================================================
+     * PAGE ERROR
+     * ========================================================
+     */
+
+    function showPageError(message) {
+
+        document
+            .getElementById("loading")
+            .classList.add(
+                "hidden"
+            );
+
+
+        const error =
+            document.getElementById(
+                "pageError"
+            );
+
+
+        error.textContent =
+            message;
+
+
+        error.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    /*
+     * ========================================================
+     * FORM ERROR
+     * ========================================================
+     */
+
+    function showFormError(message) {
+
+        const element =
+            document.getElementById(
+                "formMessage"
+            );
+
+
+        element.className =
+            "message error";
+
+
+        element.textContent =
+            "❌ " + message;
+
+    }
+
+
+    /*
+     * ========================================================
+     * CLEAR FORM MESSAGE
+     * ========================================================
+     */
+
+    function clearFormMessage() {
+
+        const element =
+            document.getElementById(
+                "formMessage"
+            );
+
+
+        element.className =
+            "message";
+
+
+        element.textContent =
+            "";
+
+    }
+
+
+    /*
+     * ========================================================
+     * START
+     * ========================================================
+     */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        loadOrder
+    );
+
+</script>
+
+</body>
+</html>
